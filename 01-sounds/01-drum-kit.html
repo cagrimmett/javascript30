@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+  <head>
+    <title>drum kit</title>
+    <style type="text/css">
+      body {
+        background: #444;
+        justify-content: center;
+      }
+      .keys {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .key {
+        width: 4.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 1rem;
+        text-align: center;
+        align-items: center;
+        padding: 1rem .5rem;
+        transition: all 0.7s;
+      }
+
+      .playing {
+        transform: scale(1.2);
+        box-shadow: 0 0 10px #fff;
+        border: 1px solid #fff;
+      }
+
+      .label {
+        color: #fff;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 40px;
+      }
+      .sound {
+        margin: 0 auto;
+        font-size: 10px;
+        text-transform: uppercase;
+        color: gold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="keys">
+      <div data-key="65" class="key"><div class="label">A</div><div class="sound">Glass</div></div>
+      <div data-key="83" class="key"><div class="label">S</div><div class="sound">Hero</div></div>
+      <div data-key="68" class="key"><div class="label">D</div><div class="sound">Morse</div></div>
+      <div data-key="70" class="key"><div class="label">F</div><div class="sound">Ping</div></div>
+      <div data-key="71" class="key"><div class="label">G</div><div class="sound">Pop</div></div>
+      <div data-key="72" class="key"><div class="label">H</div><div class="sound">Purr</div></div>
+      <div data-key="74" class="key"><div class="label">J</div><div class="sound">Sosumi</div></div>
+      <div data-key="75" class="key"><div class="label">K</div><div class="sound">Submarine</div></div>
+    </div>
+    <audio data-key="65" src="1.wav"></audio> 
+    <audio data-key="83" src="2.wav" type="audio/aiff"></audio>
+    <audio data-key="68" src="3.wav"></audio>
+    <audio data-key="70" src="4.wav"></audio>
+    <audio data-key="71" src="5.wav"></audio>
+    <audio data-key="72" src="6.wav"></audio>
+    <audio data-key="74" src="7.wav"></audio>
+    <audio data-key="75" src="8.wav"></audio>
+
+    <script type="text/javascript">
+      window.addEventListener('keydown', playSound);
+
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        if(!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+        const highlight = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        highlight.classList.add("playing");
+        const keys = document.querySelectorAll('.key');
+        keys.forEach( key => key.addEventListener('transitionend', removeTransition));
+
+        function removeTransition(e) {
+          if(e.propertyName !== 'transform') return;
+          this.classList.remove("playing");
+        };
+        
+      }
+    </script>
+  </body>
+</html>
