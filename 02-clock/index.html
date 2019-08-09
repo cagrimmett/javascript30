@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+  <head>
+    <title>drum kit</title>
+    <style type="text/css">
+      body {
+        background: #444;
+        justify-content: center;
+      }
+      .clock {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto;
+
+      }
+      .face {
+        border: 8px solid #666;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        background: #999;
+        position: relative;
+      }
+
+      .hand {
+        height: 3px;
+        background:  #fff;
+        position: absolute;
+        top: 50%;
+        transform-origin: 100%;
+        transform: rotate(90deg);
+        transition: 0.1s;
+        transition-timing-function: cubic-bezier(0, 0.93, 0.54, 1.43);
+      }
+
+      .hour {
+        width: 30%;
+        left: 20%;
+      }
+      .minute {
+        width: 40%;
+        left: 10%;
+      }
+      .second {
+        width: 50%;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="clock">
+      <div class="face">
+        <div class="hand hour"></div>
+        <div class="hand minute"></div>
+        <div class="hand second"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function setTime() {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+
+        function secminDegrees(input) {
+          return input * 6; // 360/60 = 6
+        }
+
+        function hourDegrees(hour) {
+          return hour * 30; // 360/12 = 30
+        }
+
+        const secondHand = document.querySelector('.second');
+        secondHand.style.transform = `rotate(${secminDegrees(seconds)}deg)`;
+      }
+
+      setInterval(setTime, 1000);
+
+    </script>
+  </body>
+</html>
