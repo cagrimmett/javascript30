@@ -63,15 +63,22 @@
         const hours = now.getHours();
 
         function secminDegrees(input) {
-          return input * 6; // 360/60 = 6
+          return input * 6 + 90; // 360/60 = 6
         }
 
         function hourDegrees(hour) {
-          return hour * 30; // 360/12 = 30
+          return hour * 30 + 90; // 360/12 = 30
         }
 
         const secondHand = document.querySelector('.second');
         secondHand.style.transform = `rotate(${secminDegrees(seconds)}deg)`;
+
+        const minuteHand = document.querySelector('.minute');
+        minuteHand.style.transform = `rotate(${secminDegrees(minutes)}deg)`;
+
+        const hourHand = document.querySelector('.hour');
+        hourHand.style.transform = `rotate(${hourDegrees(hours)}deg)`;
+        
       }
 
       setInterval(setTime, 1000);
